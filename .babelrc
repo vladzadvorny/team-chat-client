@@ -11,5 +11,9 @@
     ],
     "react"
   ],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": [
+    "transform-runtime",
+    "transform-class-properties",
+    "react-hot-loader/babel"
+  ]
 }
