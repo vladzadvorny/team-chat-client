@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
@@ -53,6 +54,10 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['manifest']
     }),
+    new CopyWebpackPlugin([
+      // relative path is from src
+      { from: './src/favicon.ico' } // <- your path to favicon
+    ]),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.html',
