@@ -8,7 +8,7 @@ const HeaderWrapper = styled.div`
 `;
 
 export default ({ channelName }) => (
-  <HeaderWrapper>
+  <HeaderWrapper style={{ background: 'lightgreen' }}>
     <Header textAlign="center">#{channelName}</Header>
   </HeaderWrapper>
 );
