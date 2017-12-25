@@ -1,6 +1,4 @@
 import React from 'react';
-import { extendObservable } from 'mobx';
-import { observer } from 'mobx-react';
 import {
   Message,
   Form,
@@ -13,20 +11,14 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-
-    extendObservable(this, {
-      email: '',
-      password: '',
-      errors: {}
-    });
-
-    this.onChange = this.onChange.bind(this);
-  }
+  state = {
+    email: '',
+    password: '',
+    errors: {}
+  };
 
   async onSubmit() {
-    const { email, password } = this;
+    const { email, password } = this.state;
     const response = await this.props.mutate({
       variables: { email, password }
     });
@@ -42,17 +34,21 @@ class Login extends React.Component {
         err[`${path}Error`] = message;
       });
 
-      this.errors = err;
+      this.setState({ errors: err });
     }
   }
 
   onChange = e => {
     const { name, value } = e.target;
-    this[name] = value;
+    this.setState({ [name]: value });
   };
 
   render() {
-    const { email, password, errors: { emailError, passwordError } } = this;
+    const {
+      email,
+      password,
+      errors: { emailError, passwordError }
+    } = this.state;
 
     const errorList = [];
 
@@ -115,4 +111,4 @@ const loginMutation = gql`
   }
 `;
 
-export default graphql(loginMutation)(observer(Login));
+export default graphql(loginMutation)(Login);

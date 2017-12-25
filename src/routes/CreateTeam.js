@@ -1,6 +1,4 @@
 import React from 'react';
-import { extendObservable } from 'mobx';
-import { observer } from 'mobx-react';
 import {
   Message,
   Form,
@@ -13,17 +11,13 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class CreateTeam extends React.Component {
-  constructor(props) {
-    super(props);
-
-    extendObservable(this, {
-      name: '',
-      errors: {}
-    });
-  }
+  state = {
+    name: '',
+    errors: {}
+  };
 
   async onSubmit() {
-    const { name } = this;
+    const { name } = this.state;
     const response = await this.props.mutate({
       variables: { name }
     });
@@ -40,17 +34,17 @@ class CreateTeam extends React.Component {
         err[`${path}Error`] = message;
       });
 
-      this.errors = err;
+      this.setState({ errors: err });
     }
   }
 
   onChange = e => {
     const { name, value } = e.target;
-    this[name] = value;
+    this.setState({ [name]: value });
   };
 
   render() {
-    const { name, errors: { nameError } } = this;
+    const { name, errors: { nameError } } = this.state;
 
     const errorList = [];
 
@@ -97,4 +91,4 @@ const createTeamMutation = gql`
   }
 `;
 
-export default graphql(createTeamMutation)(observer(CreateTeam));
+export default graphql(createTeamMutation)(CreateTeam);
