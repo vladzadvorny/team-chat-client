@@ -63,7 +63,8 @@ export default ({
   channels,
   users,
   onAddChannelClick,
-  teamId
+  teamId,
+  onInvitePeopleClick
 }) => (
   <ChannelWrapper>
     <PushLeft>
@@ -77,6 +78,11 @@ export default ({
         </SideBarListHeader>
         {channels.map(c => channel(c, teamId))}
       </SideBarList>
+    </div>
+    <div>
+      <a href="#invite-people" onClick={onInvitePeopleClick}>
+        + Invite People
+      </a>
     </div>
     <div>
       <SideBarList>
