@@ -2,4 +2,4 @@
 
 The frontend for a Team Chat using React and GraphQL
 
-next 18
+next 19
