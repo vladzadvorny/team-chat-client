@@ -17,9 +17,7 @@ const ViewTeam = ({
   if (loading) {
     return null;
   }
-  console.log('fff', otherProps);
-  console.log('ddd', me);
-  const { teams } = me;
+  const { username, teams } = me;
 
   if (!teams.length) {
     return <Redirect to="/create-team" />;
@@ -28,6 +26,8 @@ const ViewTeam = ({
   const teamIdInteger = parseInt(teamId, 10);
   const teamIdx = teamIdInteger ? findIndex(teams, ['id', teamIdInteger]) : 0;
   const team = teamIdx === -1 ? teams[0] : teams[teamIdx];
+  console.log('team', team);
+  console.log('teams', teams);
 
   const channelIdInteger = parseInt(channelId, 10);
   const channelIdx = channelIdInteger
@@ -44,6 +44,7 @@ const ViewTeam = ({
           letter: t.name.charAt(0).toUpperCase()
         }))}
         team={team}
+        username={username}
       />
       {channel && <Header channelName={channel.name} />}
       {channel && <MessageContainer channelId={channel.id} />}
